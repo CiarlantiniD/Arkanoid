@@ -6,6 +6,7 @@ public class MainGame : MonoBehaviour
 {
     public static MainGame instance = null;
     
+    int score = 0;
 
     void Awake()
     {
@@ -26,5 +27,10 @@ public class MainGame : MonoBehaviour
 
     public void LooseLife(){
         Debug.Log("Se Perdio una vida");
+    }
+
+    public void PiezaRota(){
+        score += 3;
+        Canvas_script.instance.Score(score);
     }
 }
