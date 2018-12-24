@@ -3,6 +3,7 @@
 public class Shere_Script : MonoBehaviour
 {
     public float ballInicialForce = 20f;
+    public float maxBallVelocity = 2.2f;
     private bool playBall = false;
     private float timeD = 0;
 
@@ -32,8 +33,8 @@ public class Shere_Script : MonoBehaviour
 
            timeD += Time.deltaTime;
 
-           if(timeD > 5){
-               rb.velocity = rb.velocity * 1.2f;
+           if(timeD > 3){
+               AddVelocity();
                timeD = 0;
            }
        }
@@ -46,6 +47,20 @@ public class Shere_Script : MonoBehaviour
         playBall = false;
         gameObject.SetActive(false);
         MainGame.instance.LooseLife();
+    }
+
+    void OnCollisionEnter(){
+        
+       
+        AddVelocity();
+        
+    }
+
+    private void AddVelocity(){
+        Debug.Log(rb.velocity.magnitude);
+        if(rb.velocity.magnitude < maxBallVelocity){
+            rb.velocity = rb.velocity * 1.02f;
+        }
     }
 
     
