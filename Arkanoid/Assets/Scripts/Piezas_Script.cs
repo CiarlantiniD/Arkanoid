@@ -17,7 +17,6 @@ public class Piezas_Script : MonoBehaviour
     }
 
      void OnCollisionEnter (Collision other){
-         MainGame.instance.PiezaRota();
          gameObject.SetActive(false);
      }
 
