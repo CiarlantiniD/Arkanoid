@@ -5,25 +5,35 @@ using UnityEngine;
 public class Base_Script : MonoBehaviour
 {
     
-    public float baseVelocidad = 0.5f;
-    private float maxRange = 0.55f;
+    public float baseVelocidad = 0.6f;
+    public float maxRange = 8f;
     
-    Vector3 playerPos = new Vector3(0, -0.2f, 0);
-
 
     private Vector3 inicialPosition;
     private Vector3 inicialPositionBall;
-    void Awake(){
-        inicialPosition = transform.position;
-        inicialPositionBall = transform.GetChild(0).transform.position;
-    }
 
+
+    private bool inGame = true;
+
+   
+    void Awake(){
+        MainGame.instance.ResetBase += Reset;
+        MainGame.instance.ResetGame += Reset;
+
+        MainGame.instance.StopGame += Stop;
+
+        inicialPosition = transform.position;
+        inicialPositionBall = transform.GetChild(0).position;
+
+    }
     
     void Update()
-    {
-        float xPosition = transform.position.x + (Input.GetAxis("Horizontal") * baseVelocidad);
-        playerPos = new Vector3(Mathf.Clamp(xPosition,-maxRange,maxRange),-0.2f,0);
-        transform.position = playerPos;
+    {   
+        if(inGame){
+            float xPosition = transform.position.x + (Input.GetAxis("Horizontal") * baseVelocidad);
+            transform.position = new Vector3(Mathf.Clamp(xPosition,-maxRange,maxRange), transform.position.y, 0);
+        }
+       
 
         if(Input.GetKeyDown(KeyCode.R)){
             Reset();
@@ -33,8 +43,16 @@ public class Base_Script : MonoBehaviour
 
     public void Reset(){
         transform.position = inicialPosition;
-        transform.GetChild(0).position = inicialPositionBall;
-        transform.GetChild(0).gameObject.SetActive(true);
     }
+
+    public void Stop(){
+        inGame = false;
+    }
+
+    public void RestartChildPosition(){
+        transform.GetChild(0).position = inicialPositionBall;
+    }
+
+    
 
 }
