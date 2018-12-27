@@ -7,7 +7,8 @@ public class Canvas_script : MonoBehaviour
 {
     public static Canvas_script instance = null;
 
-    Text scoreText;
+    private Text scoreText;
+    private Text lifes;
     void Awake()
     {
   if (instance == null)
@@ -16,10 +17,24 @@ public class Canvas_script : MonoBehaviour
             Destroy (gameObject);
 
         scoreText = transform.GetChild(0).GetComponent<Text>();
+        lifes = transform.GetChild(1).GetComponent<Text>();
     }
 
     public void Score(int scoreValue){
-        scoreText.text = scoreValue.ToString();
+
+        string ZeroString = "";
+        int ZerosInScore = 8 - scoreValue.ToString().Length;       
+
+        for (int i = 0; i < ZerosInScore; i++){
+            ZeroString = "0" + ZeroString; 
+        }
+
+        scoreText.text = ZeroString + scoreValue.ToString() + "00";
+    }
+
+
+    public void Lifes(int lifesValue){
+        lifes.text = "Lifes: " + lifesValue;
     }
 
 }
