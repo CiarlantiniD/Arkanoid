@@ -4,21 +4,19 @@ using UnityEngine;
 
 public class Piezas_Script : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+    void Awake()
     {
-        
+        //MainGame.instance.ResetGame += ResetBrick;
     }
 
      void OnCollisionEnter (Collision other){
          MainGame.instance.PiezaRota();
          gameObject.SetActive(false);
+     }
+
+     public void ResetBrick(){
+         gameObject.SetActive(true);
      }
 
 }
