@@ -22,7 +22,9 @@ public class Base_Script : MonoBehaviour
         //MainGame.instance.StopGame += Stop;
 
         inicialPosition = transform.position;
-        inicialPositionBall = transform.GetChild(0).position;
+        inicialPositionBall = transform.GetChild(0).localPosition;
+
+        //Debug.Log("Pocision Inicial Bola: " + inicialPositionBall);
 
     }
     
@@ -44,18 +46,15 @@ public class Base_Script : MonoBehaviour
     public void Reset(){
         inGame = false;
         transform.position = inicialPosition;
-        Invoke("ReStart",0.3f);
+        Invoke("Delay",0.3f);        
     }
-
-    private void ReStart(){
-        inGame = true;
-    }
+    void Delay(){inGame = true;}
 
 
+   
 
-    public void RestartChildPosition(){
-        transform.GetChild(0).position = inicialPositionBall;
-    }
+
+
 
     
 

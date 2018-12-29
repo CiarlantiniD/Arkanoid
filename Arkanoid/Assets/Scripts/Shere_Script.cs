@@ -9,17 +9,18 @@ public class Shere_Script : MonoBehaviour
     private float timeD = 0;
 
     Rigidbody rb;
-    Transform tBase;
-    
-    private Base_Script parentScript;
+
+    private Transform parentBall;
+    private Vector3 localPositionBall;
 
     void Awake ()
     {
         MainGame.instance.ResetBase += Reset;
 
         rb = GetComponent<Rigidbody>();
-        tBase = transform.parent;
-        parentScript = tBase.GetComponent<Base_Script>();
+        
+        parentBall = transform.parent;
+        localPositionBall = transform.localPosition;
     }
 
 
@@ -35,8 +36,6 @@ public class Shere_Script : MonoBehaviour
        }
 
        if(playBall){
-           
-
            timeD += Time.deltaTime;
            if(timeD > 3){
                AddVelocity();
@@ -51,7 +50,6 @@ public class Shere_Script : MonoBehaviour
     }
 
     void OnCollisionEnter(){
-        
         AddVelocity();
     }
 
@@ -63,15 +61,11 @@ public class Shere_Script : MonoBehaviour
     }
 
 
-
-
-
     public void Reset(){
-        Debug.Log("SE RESETEO LA BOLA");
-        rb.velocity = Vector3.zero;
-        transform.parent = tBase;
-        playBall = false;
         gameObject.SetActive(true);
-        parentScript.RestartChildPosition();
+        rb.velocity = Vector3.zero;
+        transform.parent = parentBall;
+        transform.localPosition = localPositionBall;        
+        playBall = false;
     }
 }
