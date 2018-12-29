@@ -14,13 +14,12 @@ public class Base_Script : MonoBehaviour
 
 
     private bool inGame = true;
-
    
     void Awake(){
         MainGame.instance.ResetBase += Reset;
         MainGame.instance.ResetGame += Reset;
 
-        MainGame.instance.StopGame += Stop;
+        //MainGame.instance.StopGame += Stop;
 
         inicialPosition = transform.position;
         inicialPositionBall = transform.GetChild(0).position;
@@ -33,21 +32,26 @@ public class Base_Script : MonoBehaviour
             float xPosition = transform.position.x + (Input.GetAxis("Horizontal") * baseVelocidad);
             transform.position = new Vector3(Mathf.Clamp(xPosition,-maxRange,maxRange), transform.position.y, 0);
         }
-       
-
-        if(Input.GetKeyDown(KeyCode.R)){
-            Reset();
-        }
-
+    
+        if(Input.GetKeyDown(KeyCode.R)){Reset();}
     }
+
+
+
+
+
 
     public void Reset(){
+        inGame = false;
         transform.position = inicialPosition;
+        Invoke("ReStart",0.3f);
     }
 
-    public void Stop(){
-        inGame = false;
+    private void ReStart(){
+        inGame = true;
     }
+
+
 
     public void RestartChildPosition(){
         transform.GetChild(0).position = inicialPositionBall;
