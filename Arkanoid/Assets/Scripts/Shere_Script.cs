@@ -12,12 +12,15 @@ public class Shere_Script : MonoBehaviour
 
     private Transform parentBall;
     private Vector3 localPositionBall;
+    private TrailRenderer trail;
 
     void Awake ()
     {
         MainGame.instance.ResetBase += Reset;
 
         rb = GetComponent<Rigidbody>();
+        trail = GetComponent<TrailRenderer>();
+        trail.enabled = false;
         
         parentBall = transform.parent;
         localPositionBall = transform.localPosition;
@@ -29,6 +32,7 @@ public class Shere_Script : MonoBehaviour
        if(Input.GetKeyDown(KeyCode.Space) && !playBall){
 
            transform.parent = null;
+           trail.enabled = true;
            playBall = true;
            rb.isKinematic = false;
            rb.AddForce(new Vector3(ballInicialForce,ballInicialForce,0));
@@ -45,6 +49,8 @@ public class Shere_Script : MonoBehaviour
     }
 
     void OnTriggerEnter(){
+        trail.Clear();
+        trail.enabled = false;
         gameObject.SetActive(false);
         MainGame.instance.LooseLife();
     }
