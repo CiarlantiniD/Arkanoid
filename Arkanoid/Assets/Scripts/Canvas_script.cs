@@ -9,6 +9,7 @@ public class Canvas_script : MonoBehaviour
 
     private Text scoreText;
     private Text lifes;
+    private Slider lifesSlider;
     void Awake()
     {
   if (instance == null)
@@ -16,8 +17,9 @@ public class Canvas_script : MonoBehaviour
         else if (instance != this)
             Destroy (gameObject);
 
-        scoreText = transform.GetChild(0).GetComponent<Text>();
-        lifes = transform.GetChild(1).GetComponent<Text>();
+        scoreText = transform.GetChild(1).GetComponent<Text>();
+        lifes = transform.GetChild(2).GetComponent<Text>();
+        lifesSlider = transform.GetChild(3).GetComponent<Slider>();
     }
 
     public void Score(int scoreValue){
@@ -35,6 +37,8 @@ public class Canvas_script : MonoBehaviour
 
     public void Lifes(int lifesValue){
         lifes.text = "Lifes: " + lifesValue;
+        lifesSlider.value = lifesValue;
     }
+
 
 }
