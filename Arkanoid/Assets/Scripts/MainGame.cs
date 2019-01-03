@@ -10,17 +10,17 @@ public class MainGame : MonoBehaviour
     public delegate void ResetAction();
     public delegate void ResetGameAction();
     public delegate void StopAction();
-    public delegate void PauseAction(bool pauseStatus);
+    public delegate void ResumeAction();
 
 
     public event ResetAction ResetBase;
     public event ResetGameAction ResetGame;
     public event StopAction StopGame;
-    public event PauseAction PauseStatus;
+    public event ResumeAction ResumeGame;
     
 
     private int score;
-    private int lifes;
+    private int hp;
     private int bricks;
 
 
@@ -44,46 +44,60 @@ public class MainGame : MonoBehaviour
     
     void Update()
     {
-        if(!inGame && Input.GetKeyDown(KeyCode.R) && ResetGame != null){
+        if(Input.GetKeyDown(KeyCode.R) && ResetGame != null){ // !inGame && 
+            ResetMain();
             ResetGame();
+            Canvas_script.instance.SetGameText("");
+            Canvas_script.instance.Score(score);
+            Canvas_script.instance.Lifes(hp);
+        }
+
+        if(Input.GetKeyDown(KeyCode.Escape) && inGame && ResumeGame != null && StopGame != null){
+            if(inPause){
+                inPause = false;
+                ResumeGame();
+                Canvas_script.instance.SetGameText("");
+            }else{
+                inPause = true;
+                StopGame();
+                Canvas_script.instance.SetGameText("PAUSE");
+            }
         }
     }
 
     private void ResetMain(){
-        inGame= true;
+        inGame = true;
+        inPause = false;
         score = 0;
-        lifes = 3;
-        bricks = 40;
+        hp = 10000;
+        bricks = 54;
     }
 
 
 
 
-    private void GameOver(bool win){
-        if(win){
-            Debug.Log("WIN GAME");
-        }
-        else{
-            Debug.Log("LOSE GAME");
-        }
-        inGame = false;
-    }
+ 
     private void CheckGameOver(){
-        if(lifes <= 0){
-            GameOver(false);
+        if(hp <= 0){
+            Debug.Log("GAME OVER");
+            StopGame();
+            Canvas_script.instance.SetGameText("Game Over");
+            inGame = false;
         }
-        else if(lifes > 0 && bricks <= 0){
-            GameOver(true);
+        else if(hp > 0 && bricks <= 0){
+            Debug.Log("WIN GAME");
+            StopGame();
+            Canvas_script.instance.SetGameText("Congratulations!");
+            inGame = false;
         }
     }
 
 
     public void LooseLife(){
-        Debug.Log("Se Perdio una vida");
-        lifes--;
-        Canvas_script.instance.Lifes(lifes);
+        hp-= 2500;
+        Canvas_script.instance.Lifes(hp);
         CheckGameOver();
-        if(ResetBase != null)
+        if(ResetBase != null && inGame)
             ResetBase();
             //Invoke("Reset" ,1f);
     }
@@ -91,7 +105,12 @@ public class MainGame : MonoBehaviour
     public void PiezaRota(){
         bricks--;
         score += 3;
+        
+        if(hp > 150)
+            hp -= 150;
+
         Canvas_script.instance.Score(score);
+        Canvas_script.instance.Lifes(hp);
         CheckGameOver();
     }
 

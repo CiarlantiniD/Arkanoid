@@ -5,9 +5,9 @@ using UnityEngine;
 public class Piezas_Script : MonoBehaviour
 {
 
-    void Awake()
+    void Start()
     {
-        //MainGame.instance.ResetGame += ResetBrick;
+        MainGame.instance.ResetGame += ResetBrick;
     }
 
      void OnCollisionEnter (Collision other){

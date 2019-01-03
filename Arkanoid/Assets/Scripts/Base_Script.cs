@@ -18,14 +18,11 @@ public class Base_Script : MonoBehaviour
     void Awake(){
         MainGame.instance.ResetBase += Reset;
         MainGame.instance.ResetGame += Reset;
-
-        //MainGame.instance.StopGame += Stop;
+        MainGame.instance.StopGame += Stop;
+        MainGame.instance.ResumeGame += Resume;
 
         inicialPosition = transform.position;
         inicialPositionBall = transform.GetChild(0).localPosition;
-
-        //Debug.Log("Pocision Inicial Bola: " + inicialPositionBall);
-
     }
     
     void Update()
@@ -34,14 +31,7 @@ public class Base_Script : MonoBehaviour
             float xPosition = transform.position.x + (Input.GetAxis("Horizontal") * baseVelocidad);
             transform.position = new Vector3(Mathf.Clamp(xPosition,-maxRange,maxRange), transform.position.y, 0);
         }
-    
-        if(Input.GetKeyDown(KeyCode.R)){Reset();}
     }
-
-
-
-
-
 
     public void Reset(){
         inGame = false;
@@ -49,6 +39,14 @@ public class Base_Script : MonoBehaviour
         Invoke("Delay",0.3f);        
     }
     void Delay(){inGame = true;}
+
+    public void Stop(){
+        inGame = false;
+    }
+
+    public void Resume(){
+        inGame = true;
+    }
 
 
    
