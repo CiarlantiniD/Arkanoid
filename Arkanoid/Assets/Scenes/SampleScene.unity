@@ -910,9 +910,9 @@ MonoBehaviour:
   m_HandleRect: {fileID: 415166473}
   m_Direction: 0
   m_MinValue: 1
-  m_MaxValue: 3
+  m_MaxValue: 10000
   m_WholeNumbers: 0
-  m_Value: 3
+  m_Value: 10000
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -3565,6 +3565,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ballInicialForce: 300
   maxBallVelocity: 25
+  addVelocityBall: 1
 --- !u!96 &1028313077
 TrailRenderer:
   serializedVersion: 2
@@ -3573,7 +3574,7 @@ TrailRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1028313070}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -5346,7 +5347,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.6650944, b: 0.88138044, a: 1}
+  m_Color: {r: 0.990566, g: 0.9017889, b: 0.9592329, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -5945,7 +5946,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.90196085, g: 0.14509805, b: 0.6392157, a: 1}
+  m_Color: {r: 0.7075472, g: 0.130162, b: 0.50710773, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
