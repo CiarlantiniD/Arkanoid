@@ -3,7 +3,7 @@
 public class Shere_Script : MonoBehaviour
 {
     [SerializeField] private float ballInicialForce = 300f;
-    [SerializeField] private float maxBallVelocity = 25f;
+    [SerializeField] private float maxBallVelocity = 20f;
     [SerializeField] private bool addVelocityBall = true;
     private float trailBall = 0.4f;
 
@@ -32,6 +32,13 @@ public class Shere_Script : MonoBehaviour
         
         parentBall = transform.parent;
         localPositionBall = transform.localPosition;
+
+        
+    }
+
+    void Start(){
+        MainGame.instance.ShareMaxVelocity(maxBallVelocity);
+        MainGame.instance.ShareVelocity(rb.velocity.magnitude);
     }
 
 
@@ -70,7 +77,8 @@ public class Shere_Script : MonoBehaviour
 
     private void AddVelocity(){       
         if(rb.velocity.magnitude < maxBallVelocity && addVelocityBall){
-            rb.velocity = rb.velocity * 1.01f;
+            rb.velocity = rb.velocity * 1.008f;
+            MainGame.instance.ShareVelocity(rb.velocity.magnitude);
         }
     }
 
@@ -82,6 +90,7 @@ public class Shere_Script : MonoBehaviour
         transform.parent = parentBall;
         transform.localPosition = localPositionBall;        
         playBall = false;
+        MainGame.instance.ShareVelocity(rb.velocity.magnitude);
     }
 
     public void Stop(){

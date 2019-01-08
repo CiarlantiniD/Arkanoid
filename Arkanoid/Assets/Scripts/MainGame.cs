@@ -36,9 +36,12 @@ public class MainGame : MonoBehaviour
             Destroy (gameObject);
 
         ResetGame += ResetMain;
+        
+    }
+
+    void Start(){
         ResetMain();
-
-
+        Canvas_script.instance.Lifes(hp);
     }
 
     
@@ -69,7 +72,7 @@ public class MainGame : MonoBehaviour
         inGame = true;
         inPause = false;
         score = 0;
-        hp = 10000;
+        hp = 12500;
         bricks = 54;
     }
 
@@ -98,8 +101,11 @@ public class MainGame : MonoBehaviour
         Canvas_script.instance.Lifes(hp);
         CheckGameOver();
         if(ResetBase != null && inGame)
-            ResetBase();
-            //Invoke("Reset" ,1f);
+            Invoke("ResetBaseDalay" ,2f);
+    }
+
+    private void ResetBaseDalay(){
+        ResetBase();
     }
 
     public void PiezaRota(){
@@ -112,6 +118,14 @@ public class MainGame : MonoBehaviour
         Canvas_script.instance.Score(score);
         Canvas_script.instance.Lifes(hp);
         CheckGameOver();
+    }
+
+    public void ShareMaxVelocity(float value){
+       Canvas_script.instance.SetSliderMaxVelocity(value);
+    }
+
+    public void ShareVelocity(float value){
+        Canvas_script.instance.SetSliderVelocity(value);
     }
 
 

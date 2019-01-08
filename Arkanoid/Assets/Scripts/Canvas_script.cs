@@ -11,6 +11,7 @@ public class Canvas_script : MonoBehaviour
     private Text lifes;
     private Slider lifesSlider;
     private Text gameText;
+    private Slider velocitySlider;
 
     void Awake(){
         if (instance == null)
@@ -22,6 +23,7 @@ public class Canvas_script : MonoBehaviour
         lifes = transform.GetChild(2).GetComponent<Text>();
         lifesSlider = transform.GetChild(3).GetComponent<Slider>();
         gameText = transform.GetChild(4).GetComponent<Text>();
+        velocitySlider = transform.GetChild(5).GetComponent<Slider>();
 
         gameText.text = "";
     }
@@ -48,6 +50,15 @@ public class Canvas_script : MonoBehaviour
     public void SetGameText(string textValue){
         gameText.gameObject.SetActive(true);
         gameText.text = textValue;
+    }
+
+    public void SetSliderVelocity(float value){
+        velocitySlider.value = value;
+       // Debug.Log(value);
+    }
+
+    public void SetSliderMaxVelocity(float value){
+        velocitySlider.maxValue = value;
     }
 
 
