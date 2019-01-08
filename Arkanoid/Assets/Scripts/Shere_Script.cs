@@ -63,11 +63,13 @@ public class Shere_Script : MonoBehaviour
        }
     }
 
-    void OnTriggerEnter(){
+    void OnTriggerEnter(Collider col){
         //trail.Clear();
-        trail.startWidth = 0;
-        gameObject.SetActive(false);
-        MainGame.instance.LooseLife();
+        if(col.gameObject.name == "Dead"){
+            trail.startWidth = 0;
+            gameObject.SetActive(false);
+            MainGame.instance.LooseLife();
+        }
     }
 
     void OnCollisionEnter(){

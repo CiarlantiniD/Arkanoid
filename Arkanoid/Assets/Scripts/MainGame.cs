@@ -17,11 +17,14 @@ public class MainGame : MonoBehaviour
     public event ResetGameAction ResetGame;
     public event StopAction StopGame;
     public event ResumeAction ResumeGame;
+
     
 
     private int score;
+    private int maxHP;
     private int hp;
     private int bricks;
+    private int hits;
 
 
 
@@ -47,7 +50,7 @@ public class MainGame : MonoBehaviour
     
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.R) && ResetGame != null){ // !inGame && 
+        if(Input.GetKeyDown(KeyCode.R) && ResetGame != null){ // !inGame && -Solo se puede reiniciar cuando el juego termina
             ResetMain();
             ResetGame();
             Canvas_script.instance.SetGameText("");
@@ -72,8 +75,10 @@ public class MainGame : MonoBehaviour
         inGame = true;
         inPause = false;
         score = 0;
-        hp = 12500;
+        maxHP = 12500;
+        hp = maxHP;
         bricks = 54;
+        hits = 0;
     }
 
 
@@ -98,6 +103,7 @@ public class MainGame : MonoBehaviour
 
     public void LooseLife(){
         hp-= 2500;
+        hits = 0;
         Canvas_script.instance.Lifes(hp);
         CheckGameOver();
         if(ResetBase != null && inGame)
@@ -110,11 +116,9 @@ public class MainGame : MonoBehaviour
 
     public void PiezaRota(){
         bricks--;
-        score += 3;
-        
-        if(hp > 150)
-            hp -= 150;
-
+        ++hits;
+        AddScore();
+        LoseHP(150);
         Canvas_script.instance.Score(score);
         Canvas_script.instance.Lifes(hp);
         CheckGameOver();
@@ -128,5 +132,26 @@ public class MainGame : MonoBehaviour
         Canvas_script.instance.SetSliderVelocity(value);
     }
 
+    public void AddHP(int value){
+        hp += value;
+        if(hp > maxHP) hp = maxHP;
+        Canvas_script.instance.Lifes(hp);
+    }
+
+    private void AddScore(){
+        if(hits > 15)
+            score+= 17;
+        else if(hits > 10)
+            score+= 11;
+        else if(hits > 5)
+            score+= 5;
+        else
+            score+= 3;
+    }
+
+    public void LoseHP(int value){
+        if(hp > value) 
+            hp -= value;
+    }
 
 }
