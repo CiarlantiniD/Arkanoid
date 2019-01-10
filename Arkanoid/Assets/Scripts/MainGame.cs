@@ -77,7 +77,7 @@ public class MainGame : MonoBehaviour
         score = 0;
         maxHP = 12500;
         hp = maxHP;
-        bricks = 54;
+        bricks = 99999; // Cambiar
         hits = 0;
     }
 
