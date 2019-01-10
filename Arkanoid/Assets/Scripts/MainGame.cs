@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 //using UnityEngine.Events;
 
 public class MainGame : MonoBehaviour
@@ -11,12 +12,14 @@ public class MainGame : MonoBehaviour
     public delegate void ResetGameAction();
     public delegate void StopAction();
     public delegate void ResumeAction();
+    public delegate void StartAction();
 
 
     public event ResetAction ResetBase;
     public event ResetGameAction ResetGame;
     public event StopAction StopGame;
     public event ResumeAction ResumeGame;
+    public event StartAction StartGame;
 
     
 
@@ -25,7 +28,7 @@ public class MainGame : MonoBehaviour
     private int hp;
     private int bricks;
     private int hits;
-
+    private int highScore;
 
 
     private bool inGame;
@@ -40,6 +43,7 @@ public class MainGame : MonoBehaviour
 
         ResetGame += ResetMain;
         
+        highScore = PlayerPrefs.GetInt("highScore");
     }
 
     void Start(){
@@ -91,6 +95,10 @@ public class MainGame : MonoBehaviour
             StopGame();
             Canvas_script.instance.SetGameText("Game Over");
             inGame = false;
+            if(score > highScore)
+                PlayerPrefs.SetInt("highScore",score);
+
+            Invoke("ChangeScene",5f);
         }
         else if(hp > 0 && bricks <= 0){
             Debug.Log("WIN GAME");
@@ -99,6 +107,10 @@ public class MainGame : MonoBehaviour
             inGame = false;
         }
     }
+
+     private void ChangeScene(){
+        SceneManager.LoadScene("MainMenu",LoadSceneMode.Single);
+     }
 
 
     public void LooseLife(){
@@ -152,6 +164,12 @@ public class MainGame : MonoBehaviour
     public void LoseHP(int value){
         if(hp > value) 
             hp -= value;
+    }
+
+    public void SetStartGame(){
+
+        if(StartGame != null)
+            StartGame();
     }
 
 }

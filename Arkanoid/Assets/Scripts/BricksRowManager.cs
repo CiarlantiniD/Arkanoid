@@ -13,11 +13,12 @@ public class BricksRowManager : MonoBehaviour
     private float inicialPosition = 12f;
 
     private float time = 0;
+    private bool inGame = false;
 
     Transform [] rows;
 
     void Awake(){
-
+        
         for (int i = 0; i < numberRow; i++)
         {
             Transform temp;
@@ -30,16 +31,18 @@ public class BricksRowManager : MonoBehaviour
        rows = GetComponentsInChildren<Transform>();
     }
 
+    void Start(){
+        MainGame.instance.StopGame += Stop;
+        MainGame.instance.ResetGame += Resume;
+        MainGame.instance.StartGame += Resume;
+    }
+
     void Update()
     {
         time += Time.deltaTime;
-        if(time > timeToMoveBricks){
+        if(time > timeToMoveBricks && inGame){
             MoveRows();
             time = 0;
-        }
-
-        if(Input.GetKeyDown(KeyCode.P)){
-            MoveRows();
         }
     }
 
@@ -50,4 +53,9 @@ public class BricksRowManager : MonoBehaviour
             item.position = new Vector3(item.position.x, yPosition, item.position.z);
         }
     }
+
+    private void Stop(){inGame = false;}
+
+    private void Resume(){inGame = true;}
+
 }

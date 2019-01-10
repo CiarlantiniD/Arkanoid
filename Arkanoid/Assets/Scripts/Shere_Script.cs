@@ -52,6 +52,7 @@ public class Shere_Script : MonoBehaviour
            //trail.Clear();
            trail.startWidth = trailBall;
            rb.AddForce(new Vector3(ballInicialForce,ballInicialForce,0));
+           MainGame.instance.SetStartGame();
        }
 
        if(playBall && !stopBall && addVelocityBall){
