@@ -59,7 +59,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 0adce6b6a54fb4ec9948f846ed1bd68c, type: 2}
+  - {fileID: 2100000, guid: f6cbd8215ca37475790196f8501c6cf5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -86,7 +86,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5080563125251791452}
-  m_Material: {fileID: 13400000, guid: 1ea28e69297384c738b8929763522599, type: 2}
+  m_Material: {fileID: 13400000, guid: 98a871a2bab2e40ca9d45bb2ee0c28bd, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -101,7 +101,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 5080563125251791452}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa9db7089fdbb46029baef8bf903a638, type: 3}
+  m_Script: {fileID: 11500000, guid: cc0b41e0da601465fad43f062888e384, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  powerUp: {fileID: 5374780933090155464, guid: f3abcdef7e79a4fa181ddf89a71e428e, type: 3}
+  powerUp: {fileID: 5374780933090155464, guid: 779a7ad93aac445439fb521d13f2621e, type: 3}
+  probability: 18
